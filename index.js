@@ -7,6 +7,7 @@ var json = {
     goNextPageAutomatic: true,
     showNavigationButtons: true,
     showProgressBar: "bottom",
+    surveyPostId : "3c0aafa2-4f26-4aba-b8bd-31e9a9762690",
     pages: [
         {
             name: "page0",
@@ -44,23 +45,15 @@ var json = {
             name: "page2",
             elements: [
                 {
-                    type: "rating",
+                    type: "radiogroup",
                     name: "question2",
                     title: "Fühlen Sie sich während des Beteiligungsprozesses angemessen repräsentiert?",
-                    commentText: "1 ",
-                    rateValues: [
-                        {
-                            value: "negativ",
-                            text: "-"
-                        },
-                        {
-                            value: "neutral",
-                            text: "o"
-                        },
-                        {
-                            value: "postiv",
-                            text: "+"
-                        }
+                    isRequired: true,
+                    colCount: 4,
+                    choices: [
+                        "-",
+                        "o",
+                        "+"
                     ],
                     rateMax: 3
                 }
@@ -100,13 +93,14 @@ var json = {
 
 window.survey = new Survey.Model(json);
 
+
 survey
     .onComplete
     .add(function (result) {
         document
             .querySelector('#surveyResult')
             .textContent = "Result JSON:\n" + JSON.stringify(result.data, null, 3);
-    });
+    })
 
 $("#surveyElement").Survey({ model: survey });
 
